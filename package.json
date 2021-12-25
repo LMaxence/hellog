@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --watch",
+    "lint": "npx eslint lib/**/*.ts",
+    "format": "npx prettier -c lib/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "lecanu.maxence@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "@escape.tech/mookme": "^1.1.0-beta.5",
