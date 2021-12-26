@@ -1,21 +1,24 @@
 import fs from 'fs';
-import * as util from 'util';
-import { LogLevel } from '../levels';
-import { BaseTransport } from './base';
+import { PreparedMessage } from '../entities';
+import { BaseOptions, BaseTransport } from './base';
 
 type OutType = 'json' | 'string';
 
-export interface FileOptions {
+export interface FileOptions extends BaseOptions {
   outType?: OutType;
   filename?: string;
 }
 
-export class FileTransport implements BaseTransport {
+export class FileTransport<
+  T extends PreparedMessage = PreparedMessage
+> extends BaseTransport<T> {
   outType: OutType = 'json';
   filename = 'output.log';
   stream: fs.WriteStream;
 
   constructor(opts?: FileOptions) {
+    // By default, the file transport does not format the message and logs 'as is'
+    super({ formatters: [], ...opts });
     if (opts?.outType !== undefined) {
       this.outType = opts.outType;
     }
@@ -27,54 +30,25 @@ export class FileTransport implements BaseTransport {
     this.stream = fs.createWriteStream(this.filename, { flags: 'a' });
   }
 
-  formatLine(message?: any, level: LogLevel = LogLevel.INFO) {
-    let formattedMessage = message;
-
-    const toPad = 7 - level.length;
-    formattedMessage = `[${level}]${' '.repeat(toPad)} | ` + formattedMessage;
-
-    const ts = new Date()
-      .toISOString()
-      .replace(/T/, ' ') // replace T with a space
-      .replace(/\..+/, '');
-    formattedMessage = `${ts} | ` + formattedMessage;
-
-    return formattedMessage;
-  }
-
-  _write(level: LogLevel, message?: any) {
-    const out = util.format(message);
+  prepareTransport(log: T): T[] {
     if (this.outType === 'json') {
-      const outObjectString = JSON.stringify({
-        timestamp: new Date().toISOString(),
-        message: out,
-        level,
-      });
-      this.stream.write(`${outObjectString}\n`);
+      return [log];
     } else {
-      for (const line of out.split('\n')) {
-        this.stream.write(`${this.formatLine(line, level)}\n`);
-      }
+      return log.message.split('\n').map((message) => ({ ...log, message }));
     }
   }
 
-  success(message?: any): void {
-    this._write(LogLevel.SUCCESS, message);
+  format(preparedLine: T): string {
+    let formattedMessage = preparedLine.message;
+    for (const formatter of this.formatters) {
+      formattedMessage = formatter(formattedMessage, preparedLine);
+    }
+    return this.outType === 'json'
+      ? JSON.stringify({ ...preparedLine, message: formattedMessage })
+      : formattedMessage;
   }
 
-  debug(message?: any): void {
-    this._write(LogLevel.DEBUG, message);
-  }
-
-  log(message?: any): void {
-    this._write(LogLevel.INFO, message);
-  }
-
-  warn(message?: any): void {
-    this._write(LogLevel.WARNING, message);
-  }
-
-  error(message?: any): void {
-    this._write(LogLevel.ERROR, message);
+  transport(log: string): void {
+    this.stream.write(`${log}\n`);
   }
 }
