@@ -1,5 +1,5 @@
-import { BaseTransport } from "./transports/base";
-import { Console } from "./transports/console";
+import { BaseTransport } from './transports/base';
+import { Console } from './transports/console';
 
 export interface HellogOptions {
   transports: BaseTransport[];
