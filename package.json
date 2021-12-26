@@ -1,17 +1,38 @@
 {
-  "name": "hellog",
+  "name": "@steffthestunt/hellog",
   "version": "1.0.0",
   "description": "Another logger in JS. This one offers a console.log-like API and formatting, colored lines and timestamps (or not if desired), all that with 0 dependencies.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "tsc --watch",
     "lint": "npx eslint lib/**/*.ts",
     "format": "npx prettier -c lib/**/*.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "lecanu.maxence@gmail.com",
+  "keywords": [
+    "log",
+    "logs",
+    "logger"
+  ],
+  "author": {
+    "name": "Maxence Lecanu",
+    "email": "lecanu.maxence@gmail.com",
+    "url": "https://me.mlecanu.com"
+  },
   "license": "ISC",
+  "homepage": "https://github.com/LMaxence/hellog",
+  "bugs": {
+    "url": "https://github.com/LMaxence/hellog/issues",
+    "email": "lecanu.maxence@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LMaxence/hellog"
+  },
+  "files": [
+    "dist/**/*.js"
+  ],
   "devDependencies": {
     "@escape.tech/mookme": "^1.1.0-beta.5",
     "@typescript-eslint/eslint-plugin": "^5.8.0",

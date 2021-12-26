@@ -9,7 +9,7 @@ It offers a `console.log`-like API and formatting, colored lines and timestamps 
 ## Install
 
 ```bash
-npm install --save hellog
+npm install --save @steffthestunt/hellog
 ```
 
 ## Get started
