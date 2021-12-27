@@ -176,7 +176,9 @@ Then, for each transport, it's `log` method is called. This method is guaranteed
 Here the default implementation of the `log` method on the `BaseTransport class`. Let's break this down.
 
 ```ts
-export abstract class BaseTransport {
+export abstract class BaseTransport<
+  T extends PreparedMessage = PreparedMessage
+> {
   //...
 
   log(log: T) {
@@ -198,7 +200,7 @@ Each one of these lines will be formatted during the rest of the execution.
 > **This behaviour can be overriden when writing your own transport class.** For example, the `File` transport is implemented as follows:
 
 ```ts
-export class FileTransport {
+export class FileTransport<T extends PreparedMessage = PreparedMessage> {
   //...
 
   prepareTransport(log: T): T[] {
@@ -233,7 +235,9 @@ For each line, every formatters are called in the order defined by the list prov
 Here is the default implementation of the `format` step:
 
 ```ts
-export abstract class BaseTransport {
+export abstract class BaseTransport<
+  T extends PreparedMessage = PreparedMessage
+> {
   formatters: Formatter[] = [addLevel(), addTimestamp(), colorize()];
 
   //...
