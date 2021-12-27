@@ -17,9 +17,8 @@ function colorizeByLevel(level: LogLevel, message: string) {
   }
 }
 
-export function colorize(
-  currentMessage: string,
-  context: PreparedMessage
-): string {
-  return colorizeByLevel(context.level, currentMessage);
+export function colorize() {
+  return (currentMessage: string, context: PreparedMessage): string => {
+    return colorizeByLevel(context.level, currentMessage);
+  };
 }

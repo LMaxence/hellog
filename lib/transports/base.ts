@@ -4,23 +4,23 @@ import { addLevel } from '../formats/add-level';
 import { colorize } from '../formats/colorize';
 import { addTimestamp } from '../formats/timestamp';
 
-export interface BaseOptions {
-  formatters?: Formatter[];
+export interface BaseOptions<T extends PreparedMessage = PreparedMessage> {
+  formatters?: Formatter<T>[];
 }
 
 export abstract class BaseTransport<
   T extends PreparedMessage = PreparedMessage
 > {
-  formatters: Formatter[] = [addLevel(), addTimestamp, colorize];
+  formatters: Formatter<T>[] = [addLevel(), addTimestamp(), colorize()];
 
-  constructor(opts?: BaseOptions) {
+  constructor(opts?: BaseOptions<T>) {
     if (opts && opts.formatters) {
       this.formatters = opts.formatters;
     }
   }
 
   prepareTransport(log: T): T[] {
-    return [log];
+    return log.message.split('\n').map((message) => ({ ...log, message }));
   }
 
   format(preparedLine: T): string {

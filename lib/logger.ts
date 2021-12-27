@@ -4,20 +4,20 @@ import { LogLevel } from './entities/levels';
 import { BaseTransport } from './transports/base';
 import { Console } from './transports/console';
 
-export type ContextExtension = (
+export type ContextExtension<T extends PreparedMessage = PreparedMessage> = (
   message: PreparedMessage
-) => PreparedMessage & { [key: string]: any };
+) => T;
 
-export interface HellogOptions {
-  transports?: BaseTransport[];
-  additionalContext?: ContextExtension;
+export interface HellogOptions<T extends PreparedMessage = PreparedMessage> {
+  transports?: BaseTransport<T>[];
+  additionalContext?: ContextExtension<T>;
 }
 
-export class Hellog {
-  transports: BaseTransport[] = [new Console()];
-  additionalContext?: ContextExtension;
+export class Hellog<T extends PreparedMessage = PreparedMessage> {
+  transports: BaseTransport<T>[] = [new Console()];
+  additionalContext?: ContextExtension<T>;
 
-  constructor(opts?: HellogOptions) {
+  constructor(opts?: HellogOptions<T>) {
     if (opts && opts.transports) {
       this.transports = opts.transports;
     }
@@ -26,13 +26,13 @@ export class Hellog {
     }
   }
 
-  prepareObject(level: LogLevel, out: string): PreparedMessage {
+  prepareObject(level: LogLevel, out: string): T {
     const timestamp = new Date();
     let context: PreparedMessage = { timestamp, level, message: out };
     if (this.additionalContext) {
       context = this.additionalContext(context);
     }
-    return context;
+    return context as T;
   }
 
   _log(level: LogLevel, message?: any, ...utilFormatParams: any[]) {
