@@ -34,7 +34,7 @@
     "dist/**/*.js"
   ],
   "devDependencies": {
-    "@escape.tech/mookme": "^1.1.0-beta.5",
+    "@escape.tech/mookme": "^1.1.0-beta.7",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
