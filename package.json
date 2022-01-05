@@ -31,7 +31,8 @@
     "url": "https://github.com/LMaxence/hellog"
   },
   "files": [
-    "dist/**/*.js"
+    "dist/**/*.js",
+    "dist/**/*.ts"
   ],
   "devDependencies": {
     "@escape.tech/mookme": "^1.2.0-beta.1",
