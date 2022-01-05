@@ -2,10 +2,13 @@ import { PreparedMessage } from '../entities';
 
 export function addLevel(bold = true) {
   return function (currentMessage: string, context: PreparedMessage) {
-    const toPad = 7 - context.level.length;
+    const toPad = Math.floor((7 - context.level.length) / 2);
+    const levelString =
+      context.level.length % 2 === 0
+        ? `${' '.repeat(toPad)}${context.level}${' '.repeat(toPad + 1)}`
+        : `${' '.repeat(toPad)}${context.level}${' '.repeat(toPad)}`;
     return bold
-      ? `\x1b[1m[${context.level}]\x1b[22m${' '.repeat(toPad)} | ` +
-          currentMessage
-      : `[${context.level}]${' '.repeat(toPad)} | ` + currentMessage;
+      ? `\x1b[1m[${levelString}]\x1b[22m ` + currentMessage
+      : `[${levelString}] ` + currentMessage;
   };
 }

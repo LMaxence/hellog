@@ -6,6 +6,6 @@ export function addTimestamp() {
       .toISOString()
       .replace(/T/, ' ')
       .replace(/\..+/, '');
-    return `${ts} | ` + currentMessage;
+    return `${ts} ` + currentMessage;
   };
 }
