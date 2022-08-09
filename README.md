@@ -94,7 +94,7 @@ It ouptus JSON objects by default:
 {"timestamp":"2021-12-26T15:14:13.669Z","message":"{\n  some: 'bar',\n  foo: { nested: { bar: 'test', test: 'bar', hello: 2 } }\n}","level":"success"}
 {"timestamp":"2021-12-26T15:14:13.669Z","message":"{\n  some: 'bar',\n  foo: { nested: { bar: 'test', test: 'bar', hello: 2 } }\n}","level":"debug"}
 {"timestamp":"2021-12-26T15:14:13.669Z","message":"Error: test\n    at Object.<anonymous> (/Users/escape/Code/hellog/tester.js:19:14)\n    at Module._compile (node:internal/modules/cjs/loader:1101:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)\n    at Module.load (node:internal/modules/cjs/loader:981:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:822:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)\n    at node:internal/main/run_main_module:17:47","level":"error"}
-{"timestamp":"2021-12-26T15:14:13.669Z","message":"Error: test\n    at Object.<anonymous> (/Users/escape/Code/hellog/tester.js:20:13)\n    at Module._compile (node:internal/modules/cjs/loader:1101:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)\n    at Module.load (node:internal/modules/cjs/loader:981:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:822:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)\n    at node:internal/main/run_main_module:17:47","level":"warning"}
+{"timestamp":"2021-12-26T15:14:13.669Z","message":"Error: test\n    at Object.<anonymous> (/Users/escape/Code/hellog/tester.js:20:13)\n    at Module._compile (node:internal/modules/cjs/loader:1101:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)\n    at Module.load (node:internal/modules/cjs/loader:981:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:822:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)\n    at node:internal/main/run_main_module:17:47","level":"warn"}
 ```
 
 It can also output strings:
@@ -133,14 +133,14 @@ const logger = new Hellog({
 2021-12-26 15:20:42 | [error]   |     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
 2021-12-26 15:20:42 | [error]   |     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
 2021-12-26 15:20:42 | [error]   |     at node:internal/main/run_main_module:17:47
-2021-12-26 15:20:42 | [warning] | Error: test
-2021-12-26 15:20:42 | [warning] |     at Object.<anonymous> (/Users/escape/Code/hellog/tester.js:22:13)
-2021-12-26 15:20:42 | [warning] |     at Module._compile (node:internal/modules/cjs/loader:1101:14)
-2021-12-26 15:20:42 | [warning] |     at Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
-2021-12-26 15:20:42 | [warning] |     at Module.load (node:internal/modules/cjs/loader:981:32)
-2021-12-26 15:20:42 | [warning] |     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
-2021-12-26 15:20:42 | [warning] |     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
-2021-12-26 15:20:42 | [warning] |     at node:internal/main/run_main_module:17:47
+2021-12-26 15:20:42 | [warn] | Error: test
+2021-12-26 15:20:42 | [warn] |     at Object.<anonymous> (/Users/escape/Code/hellog/tester.js:22:13)
+2021-12-26 15:20:42 | [warn] |     at Module._compile (node:internal/modules/cjs/loader:1101:14)
+2021-12-26 15:20:42 | [warn] |     at Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
+2021-12-26 15:20:42 | [warn] |     at Module.load (node:internal/modules/cjs/loader:981:32)
+2021-12-26 15:20:42 | [warn] |     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+2021-12-26 15:20:42 | [warn] |     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+2021-12-26 15:20:42 | [warn] |     at node:internal/main/run_main_module:17:47
 ```
 
 #### Options
