@@ -1,6 +1,6 @@
 {
   "name": "@steffthestunt/hellog",
-  "version": "1.2.10",
+  "version": "1.3.0",
   "description": "Another logger in JS. This one offers a console.log-like API and formatting, colored lines and timestamps (or not if desired), all that with 0 dependencies.",
   "main": "dist/index.js",
   "scripts": {
