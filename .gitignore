@@ -3,3 +3,5 @@ dist
 
 tester.js
 output.log
+
+.yarn/cache

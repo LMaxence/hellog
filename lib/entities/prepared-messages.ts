@@ -1,4 +1,4 @@
-import { LogLevel } from './levels';
+import { LogLevel } from './levels.js';
 
 export interface PreparedMessage {
   message: string;

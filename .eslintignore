@@ -1,0 +1,11 @@
+.svelte-kit/
+.yarn/
+build/
+coverage/
+dist/
+node_modules/
+
+services/documentation
+
+# Ignore config files
+*.cjs

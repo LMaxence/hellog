@@ -1,5 +1,5 @@
-import { PreparedMessage } from '../entities';
-import { BaseOptions, BaseTransport } from './base';
+import type { PreparedMessage } from '../entities/index.js';
+import { BaseTransport, type BaseOptions } from './base.js';
 
 export class Console<
   T extends PreparedMessage = PreparedMessage

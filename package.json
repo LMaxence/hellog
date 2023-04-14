@@ -1,26 +1,12 @@
 {
   "name": "@steffthestunt/hellog",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "description": "Another logger in JS. This one offers a console.log-like API and formatting, colored lines and timestamps (or not if desired), all that with 0 dependencies.",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "tsc --watch",
-    "lint": "npx eslint lib/**/*.ts",
-    "format": "npx prettier -c lib/**/*.ts",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "log",
     "logs",
     "logger"
   ],
-  "author": {
-    "name": "Maxence Lecanu",
-    "email": "lecanu.maxence@gmail.com",
-    "url": "https://me.mlecanu.com"
-  },
-  "license": "ISC",
   "homepage": "https://github.com/LMaxence/hellog",
   "bugs": {
     "url": "https://github.com/LMaxence/hellog/issues",
@@ -30,16 +16,45 @@
     "type": "git",
     "url": "https://github.com/LMaxence/hellog"
   },
+  "license": "ISC",
+  "author": {
+    "name": "Maxence Lecanu",
+    "email": "lecanu.maxence@gmail.com",
+    "url": "https://me.mlecanu.com"
+  },
+  "type": "module",
+  "main": "dist/index.js",
   "files": [
     "dist/**/*.js",
     "dist/**/*.ts"
   ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "format": "npx prettier -c lib/**/*.ts",
+    "lint": "npx eslint lib/**/*.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "devDependencies": {
-    "@escape.tech/mookme": "^1.2.0-beta.1",
-    "@typescript-eslint/eslint-plugin": "^5.8.0",
-    "@typescript-eslint/parser": "^5.8.0",
-    "eslint": "^8.5.0",
-    "prettier": "^2.5.1",
-    "typescript": "^4.5.4"
-  }
+    "@escape.tech/mookme": "^2.3.0",
+    "@tsconfig/esm": "^1.0.2",
+    "@tsconfig/node18": "^1.0.1",
+    "@tsconfig/strictest": "^2.0.0",
+    "@types/eslint": "^8.37.0",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-xo": "^0.43.1",
+    "eslint-config-xo-typescript": "^0.57.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-unicorn": "latest",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.8.7",
+    "prettier-plugin-jsdoc": "^0.4.2",
+    "prettier-plugin-packagejson": "^2.4.3",
+    "typescript": "^5.0.4"
+  },
+  "packageManager": "yarn@3.5.0"
 }

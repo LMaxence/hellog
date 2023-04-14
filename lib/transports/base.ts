@@ -1,8 +1,7 @@
-import { Formatter } from '../entities/formatters';
-import { PreparedMessage } from '../entities/prepared-messages';
-import { addLevel } from '../formats/add-level';
-import { colorize } from '../formats/colorize';
-import { addTimestamp } from '../formats/timestamp';
+import type { Formatter, PreparedMessage } from '../entities/index.js';
+import { addLevel } from '../formats/add-level.js';
+import { colorize } from '../formats/colorize.js';
+import { addTimestamp } from '../formats/timestamp.js';
 
 export interface BaseOptions<T extends PreparedMessage = PreparedMessage> {
   formatters?: Formatter<T>[];
@@ -38,6 +37,6 @@ export abstract class BaseTransport<
   log(log: T) {
     const messages = this.prepareTransport(log);
     const fMessages = messages.map((message) => this.format(message));
-    fMessages.forEach((fMessage) => this.transport(fMessage));
+    for (const fMessage of fMessages) this.transport(fMessage);
   }
 }

@@ -1,8 +1,8 @@
-import * as util from 'util';
-import { PreparedMessage } from './entities';
-import { LogLevel } from './entities/levels';
-import { BaseTransport } from './transports/base';
-import { Console } from './transports/console';
+import * as util from 'node:util';
+import type { PreparedMessage } from './entities/index.js';
+import { LogLevel } from './entities/levels.js';
+import { BaseTransport } from './transports/base.js';
+import { Console } from './transports/console.js';
 
 export type ContextExtension<T extends PreparedMessage = PreparedMessage> = (
   message: PreparedMessage
@@ -35,7 +35,7 @@ export class Hellog<T extends PreparedMessage = PreparedMessage> {
     return context as T;
   }
 
-  _log(level: LogLevel, message?: any, ...utilFormatParams: any[]) {
+  _log(level: LogLevel, message?: unknown, ...utilFormatParams: unknown[]) {
     const out = util.format(message, ...utilFormatParams);
     const logObject = this.prepareObject(level, out);
     for (const transport of this.transports) {
@@ -43,23 +43,23 @@ export class Hellog<T extends PreparedMessage = PreparedMessage> {
     }
   }
 
-  log(message?: any, ...optionalParams: any[]): void {
+  log(message?: unknown, ...optionalParams: unknown[]): void {
     this._log(LogLevel.INFO, message, ...optionalParams);
   }
 
-  debug(message?: any, ...optionalParams: any[]): void {
+  debug(message?: unknown, ...optionalParams: unknown[]): void {
     this._log(LogLevel.DEBUG, message, ...optionalParams);
   }
 
-  success(message?: any, ...optionalParams: any[]): void {
+  success(message?: unknown, ...optionalParams: unknown[]): void {
     this._log(LogLevel.SUCCESS, message, ...optionalParams);
   }
 
-  warn(message?: any, ...optionalParams: any[]): void {
+  warn(message?: unknown, ...optionalParams: unknown[]): void {
     this._log(LogLevel.WARNING, message, ...optionalParams);
   }
 
-  error(message?: any, ...optionalParams: any[]): void {
+  error(message?: unknown, ...optionalParams: unknown[]): void {
     this._log(LogLevel.ERROR, message, ...optionalParams);
   }
 }

@@ -1,4 +1,4 @@
-import { PreparedMessage } from '../entities';
+import type { PreparedMessage } from '../entities/index.js';
 
 export function addTimestamp() {
   return (currentMessage: string, context: PreparedMessage) => {

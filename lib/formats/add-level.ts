@@ -1,4 +1,4 @@
-import { PreparedMessage } from '../entities';
+import type { PreparedMessage } from '../entities/index.js';
 
 export function addLevel(bold = true) {
   return function (currentMessage: string, context: PreparedMessage) {
@@ -8,7 +8,7 @@ export function addLevel(bold = true) {
         ? `${' '.repeat(toPad)}${context.level}${' '.repeat(toPad + 1)}`
         : `${' '.repeat(toPad)}${context.level}${' '.repeat(toPad)}`;
     return bold
-      ? `\x1b[1m[${levelString}]\x1b[22m ` + currentMessage
+      ? `\u001B[1m[${levelString}]\u001B[22m ` + currentMessage
       : `[${levelString}] ` + currentMessage;
   };
 }

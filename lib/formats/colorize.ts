@@ -1,19 +1,25 @@
-import { LogLevel, PreparedMessage } from '../entities';
+import { LogLevel, type PreparedMessage } from '../entities/index.js';
 
 function colorizeByLevel(level: LogLevel, message: string) {
   switch (level) {
-    case LogLevel.SUCCESS:
-      return '\x1b[32m' + message + '\x1b[0m';
-    case LogLevel.WARNING:
-      return '\x1b[33m' + message + '\x1b[0m';
-    case LogLevel.INFO:
+    case LogLevel.SUCCESS: {
+      return '\u001B[32m' + message + '\u001B[0m';
+    }
+    case LogLevel.WARNING: {
+      return '\u001B[33m' + message + '\u001B[0m';
+    }
+    case LogLevel.INFO: {
       return message;
-    case LogLevel.ERROR:
-      return '\x1b[31m' + message + '\x1b[0m';
-    case LogLevel.DEBUG:
-      return '\x1b[34m' + message + '\x1b[0m';
-    default:
+    }
+    case LogLevel.ERROR: {
+      return '\u001B[31m' + message + '\u001B[0m';
+    }
+    case LogLevel.DEBUG: {
+      return '\u001B[34m' + message + '\u001B[0m';
+    }
+    default: {
       return message;
+    }
   }
 }
 

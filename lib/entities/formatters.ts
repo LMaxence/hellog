@@ -1,7 +1,7 @@
-import { PreparedMessage } from './prepared-messages';
+import type { PreparedMessage } from './prepared-messages.js';
 
 export type Formatter<T extends PreparedMessage = PreparedMessage> = (
   current: string,
   context: T
 ) => string;
-export type FromatterGen = (...opts: any[]) => Formatter;
+export type FromatterGen = (...opts: unknown[]) => Formatter;

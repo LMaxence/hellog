@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { PreparedMessage } from '../entities';
-import { BaseOptions, BaseTransport } from './base';
+import fs from 'node:fs';
+import type { PreparedMessage } from '../entities/index.js';
+import { BaseTransport, type BaseOptions } from './base.js';
 
 type OutType = 'json' | 'string';
 
@@ -30,15 +30,13 @@ export class FileTransport<
     this.stream = fs.createWriteStream(this.filename, { flags: 'a' });
   }
 
-  prepareTransport(log: T): T[] {
-    if (this.outType === 'json') {
-      return [log];
-    } else {
-      return log.message.split('\n').map((message) => ({ ...log, message }));
-    }
+  override prepareTransport(log: T): T[] {
+    return this.outType === 'json'
+      ? [log]
+      : log.message.split('\n').map((message) => ({ ...log, message }));
   }
 
-  format(preparedLine: T): string {
+  override format(preparedLine: T): string {
     let formattedMessage = preparedLine.message;
     for (const formatter of this.formatters) {
       formattedMessage = formatter(formattedMessage, preparedLine);
@@ -48,7 +46,7 @@ export class FileTransport<
       : formattedMessage;
   }
 
-  transport(log: string): void {
+  override transport(log: string): void {
     this.stream.write(`${log}\n`);
   }
 }

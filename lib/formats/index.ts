@@ -1,3 +1,3 @@
-export { addLevel } from './add-level';
-export { colorize } from './colorize';
-export { addTimestamp } from './timestamp';
+export { addLevel } from './add-level.js';
+export { colorize } from './colorize.js';
+export { addTimestamp } from './timestamp.js';
