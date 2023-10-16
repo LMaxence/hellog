@@ -59,6 +59,10 @@ export class Hellog<T extends PreparedMessage = PreparedMessage> {
     this._log(LogLevel.WARNING, message, ...optionalParams);
   }
 
+  trace(message?: unknown, ...optionalParams: unknown[]): void {
+    this._log(LogLevel.TRACE, message, ...optionalParams);
+  }
+
   error(message?: unknown, ...optionalParams: unknown[]): void {
     this._log(LogLevel.ERROR, message, ...optionalParams);
   }

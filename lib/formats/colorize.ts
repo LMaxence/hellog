@@ -17,6 +17,9 @@ function colorizeByLevel(level: LogLevel, message: string) {
     case LogLevel.DEBUG: {
       return '\u001B[34m' + message + '\u001B[0m';
     }
+    case LogLevel.TRACE: {
+      return '\u001B[34m' + message + '\u001B[0m';
+    }
     default: {
       return message;
     }
