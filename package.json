@@ -37,7 +37,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@escape.tech/mookme": "^2.3.0",
+    "@escape.tech/mookme": "^2.5.0",
     "@tsconfig/esm": "^1.0.2",
     "@tsconfig/node18": "^1.0.1",
     "@tsconfig/strictest": "^2.0.0",

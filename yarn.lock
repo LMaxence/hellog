@@ -32,9 +32,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@escape.tech/mookme@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "@escape.tech/mookme@npm:2.3.0"
+"@escape.tech/mookme@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@escape.tech/mookme@npm:2.5.0"
   dependencies:
     chalk: ^4.1.1
     commander: ^7.2.0
@@ -43,7 +43,7 @@ __metadata:
     wildcard-match: ^5.1.0
   bin:
     mookme: bin/index.js
-  checksum: 549709fa4b16317bfcc39954f94de67bca86528f5c206ccf0c213be45d52bceef24431179d8e4c2c974c13d1ef01342e69313afb44117a030cee8ba2360e4d78
+  checksum: 9986753193afdaa8789c0d9350b888bb03280a9d7b975db05e56800a451943e7b8917a2b836a1bc5c398b3bbb3cd158a044982337aa1252be138762e9ef80c68
   languageName: node
   linkType: hard
 
@@ -159,7 +159,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@steffthestunt/hellog@workspace:."
   dependencies:
-    "@escape.tech/mookme": ^2.3.0
+    "@escape.tech/mookme": ^2.5.0
     "@tsconfig/esm": ^1.0.2
     "@tsconfig/node18": ^1.0.1
     "@tsconfig/strictest": ^2.0.0
