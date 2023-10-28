@@ -174,11 +174,11 @@ __metadata:
   resolution: "@steffthestunt/hellog@workspace:."
   dependencies:
     "@escape.tech/mookme": ^2.5.0
-    "@tsconfig/esm": ^1.0.2
+    "@tsconfig/esm": ^1.0.5
     "@tsconfig/node18": ^1.0.1
-    "@tsconfig/strictest": ^2.0.0
+    "@tsconfig/strictest": ^2.0.2
     "@types/eslint": ^8.44.6
-    "@types/node": ^18.15.11
+    "@types/node": ^18.18.7
     "@typescript-eslint/eslint-plugin": ^6.9.0
     "@typescript-eslint/parser": ^6.9.0
     eslint: ^8.52.0
@@ -191,28 +191,28 @@ __metadata:
     prettier: ^3.0.3
     prettier-plugin-jsdoc: ^1.1.1
     prettier-plugin-packagejson: ^2.4.6
-    typescript: ^5.0.4
+    typescript: ^5.2.2
   languageName: unknown
   linkType: soft
 
-"@tsconfig/esm@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@tsconfig/esm@npm:1.0.2"
-  checksum: 2954a27be73b6a13fbba2d07a1924b3918be9cf4cf9e3a582b942eb0ca043481794b16a8209584c75853aa2c162bdd1cef7e68ffdf782537a9694194eea199c6
+"@tsconfig/esm@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@tsconfig/esm@npm:1.0.5"
+  checksum: 471c1d98edee18ef504e53c7ba4357d7317b8e7a77b7be69a79d29bfca3fcf265ba09728b2ebc9efb37eba03fa6b7cbdf18cf92193fe7fa8dbe6c0951120a8f6
   languageName: node
   linkType: hard
 
 "@tsconfig/node18@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@tsconfig/node18@npm:1.0.1"
-  checksum: aba11b453e40b03a33321e5b2bd51ba2d5213503bb95f1ecd56a5dd0be31eef1ab9ddfe06b4eae99075692641de905d57a38d671a9288bacac82327d393de1e2
+  version: 1.0.3
+  resolution: "@tsconfig/node18@npm:1.0.3"
+  checksum: 101b12f59fde8693269fc22fe22ed93ce5006a6fdd550ff25f39c9324acea48a0e83fd93d302b719e75467c89a963bf79cdd2017aeb6db5d0cfb805a86ab7f23
   languageName: node
   linkType: hard
 
-"@tsconfig/strictest@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@tsconfig/strictest@npm:2.0.0"
-  checksum: a21d79fb3eb587e3e61b5bf3e4f52bc2a4f471ca4f3b1effe93849b97a36723cecfbef8181bac2c68cba9b44ef6b220cbe64194d17826622402de144383440f3
+"@tsconfig/strictest@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@tsconfig/strictest@npm:2.0.2"
+  checksum: 5409233288d872a2d79aca5eb65d3da681c6e0baa9ee58744adceda834fececdaa8265869793cfd5a80f4c887e3296b4d13309ef5bffbf7c8272071f00b60ba7
   languageName: node
   linkType: hard
 
@@ -279,10 +279,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.15.11":
-  version: 18.15.11
-  resolution: "@types/node@npm:18.15.11"
-  checksum: 977b4ad04708897ff0eb049ecf82246d210939c82461922d20f7d2dcfd81bbc661582ba3af28869210f7e8b1934529dcd46bff7d448551400f9d48b9d3bddec3
+"@types/node@npm:^18.18.7":
+  version: 18.18.7
+  resolution: "@types/node@npm:18.18.7"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 972f8b214f961b6c8d99f84aab8bfadc656bb71fc7ad4a543ad3405286c95f27385ee0c3844f88d612f3cf225cd4d49ce8a7d9aea05a2aba9b2524ac525040aa
   languageName: node
   linkType: hard
 
@@ -3544,23 +3546,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.4":
-  version: 5.0.4
-  resolution: "typescript@npm:5.0.4"
+"typescript@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "typescript@npm:5.2.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 82b94da3f4604a8946da585f7d6c3025fff8410779e5bde2855ab130d05e4fd08938b9e593b6ebed165bda6ad9292b230984f10952cf82f0a0ca07bbeaa08172
+  checksum: 7912821dac4d962d315c36800fe387cdc0a6298dba7ec171b350b4a6e988b51d7b8f051317786db1094bd7431d526b648aba7da8236607febb26cf5b871d2d3c
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.0.4#~builtin<compat/typescript>":
-  version: 5.0.4
-  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=85af82"
+"typescript@patch:typescript@^5.2.2#~builtin<compat/typescript>":
+  version: 5.2.2
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=85af82"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bb309d320c59a26565fb3793dba550576ab861018ff3fd1b7fccabbe46ae4a35546bc45f342c0a0b6f265c801ccdf64ffd68f548f117ceb7f0eac4b805cd52a9
+  checksum: 07106822b4305de3f22835cbba949a2b35451cad50888759b6818421290ff95d522b38ef7919e70fb381c5fe9c1c643d7dea22c8b31652a717ddbd57b7f4d554
   languageName: node
   linkType: hard
 
@@ -3573,6 +3575,13 @@ __metadata:
     has-symbols: ^1.0.3
     which-boxed-primitive: ^1.0.2
   checksum: b7a1cf5862b5e4b5deb091672ffa579aa274f648410009c81cca63fed3b62b610c4f3b773f912ce545bb4e31edc3138975b5bc777fc6e4817dca51affb6380e9
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
   languageName: node
   linkType: hard
 

@@ -38,11 +38,11 @@
   },
   "devDependencies": {
     "@escape.tech/mookme": "^2.5.0",
-    "@tsconfig/esm": "^1.0.2",
+    "@tsconfig/esm": "^1.0.5",
     "@tsconfig/node18": "^1.0.1",
-    "@tsconfig/strictest": "^2.0.0",
+    "@tsconfig/strictest": "^2.0.2",
     "@types/eslint": "^8.44.6",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.18.7",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
     "eslint": "^8.52.0",
@@ -55,7 +55,7 @@
     "prettier": "^3.0.3",
     "prettier-plugin-jsdoc": "^1.1.1",
     "prettier-plugin-packagejson": "^2.4.6",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   },
   "packageManager": "yarn@3.5.0"
 }
