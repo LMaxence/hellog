@@ -13,6 +13,19 @@ export interface HellogOptions<T extends PreparedMessage = PreparedMessage> {
   additionalContext?: ContextExtension<T>;
 }
 
+const LOG_LEVEL =
+  LogLevel[process.env['LOG_LEVEL']?.toUpperCase() as keyof typeof LogLevel] ??
+  LogLevel.TRACE;
+
+const levels = [
+  LogLevel.TRACE,
+  LogLevel.DEBUG,
+  LogLevel.INFO,
+  LogLevel.SUCCESS,
+  LogLevel.WARNING,
+  LogLevel.ERROR
+];
+
 export class Hellog<T extends PreparedMessage = PreparedMessage> {
   transports: BaseTransport<T>[] = [new Console()];
   additionalContext?: ContextExtension<T>;
@@ -36,6 +49,8 @@ export class Hellog<T extends PreparedMessage = PreparedMessage> {
   }
 
   _log(level: LogLevel, message?: unknown, ...utilFormatParams: unknown[]) {
+    if (levels.indexOf(level) < levels.indexOf(LOG_LEVEL)) return;
+
     const out = util.format(message, ...utilFormatParams);
     const logObject = this.prepareObject(level, out);
     for (const transport of this.transports) {
