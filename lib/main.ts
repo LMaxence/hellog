@@ -1,16 +1,8 @@
 import { Hellog } from './hellog.js';
 import { HellogLevel } from './levels.js';
-import {
-  HellogLogFormatDefaultPlugin,
-  HellogStdoutDefaultPlugin,
-} from './plugins.js';
 
 const logger = new Hellog({
   level: HellogLevel.TRACE,
-  plugins: [
-    new HellogLogFormatDefaultPlugin(),
-    new HellogStdoutDefaultPlugin(),
-  ],
   meta: {
     service: 'hellog',
   },
@@ -35,3 +27,5 @@ logger.error(
 );
 logger.info('Hello, world!');
 logger.warn('Hello, world!');
+
+logger.error(new Error('Hello, world!'));

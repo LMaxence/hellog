@@ -20,4 +20,10 @@ export default tseslint.config(
   {
     ignores: ['dist/**/*'],
   },
+  {
+    files: ['lib/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'off',
+    },
+  },
 );

@@ -34,7 +34,8 @@
     "dev": "node --watch --import tsx ./lib/main.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "NODE_NO_WARNINGS=1 node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info --test-reporter spec --test-reporter-destination=stdout --test-coverage-include \"lib/*.ts\" --test-coverage-exclude \"lib/*.spec.ts\" --import tsx lib/*.spec.ts"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
