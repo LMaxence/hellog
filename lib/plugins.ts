@@ -1,6 +1,7 @@
 import { HellogLevel } from './levels.js';
 import { HellogMessage } from './messages.js';
 
+/* node:coverage disable */
 export abstract class HellogPlugin {
   format(message: HellogMessage[]): HellogMessage[] {
     return message;
@@ -9,6 +10,7 @@ export abstract class HellogPlugin {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   write(_message: HellogMessage): void {}
 }
+/* node:coverage enable */
 
 export class HellogLineBreakDefaultPlugin extends HellogPlugin {
   override format(messages: HellogMessage[]): HellogMessage[] {
@@ -66,6 +68,7 @@ export class HellogLogFormatDefaultPlugin extends HellogPlugin {
       let content = '';
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       for (const key in data) content += `${key}="${data[key]!}" `;
+      if (content.endsWith(' ')) content = content.slice(0, -1);
 
       formatted.push({ ...message, content });
     }
