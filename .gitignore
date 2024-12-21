@@ -1,7 +1,2 @@
 node_modules
 dist
-
-tester.js
-output.log
-
-.yarn/cache

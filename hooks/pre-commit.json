@@ -1,0 +1,12 @@
+{
+  "steps": [
+    {
+      "name": "Check format",
+      "command": "npm run format:check"
+    },
+    {
+      "name": "Lint code",
+      "command": "npm run lint"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "@steffthestunt/hellog",
-  "version": "2.3.1",
-  "description": "Another logger in JS. This one offers a console.log-like API and formatting, colored lines and timestamps (or not if desired), all that with 0 dependencies.",
+  "version": "3.0.0",
+  "description": "Another logger for JS. This one offers a console.log-like API, with plugin-based extensibility, all that with 0 dependencies.",
   "keywords": [
     "log",
     "logs",
@@ -20,7 +20,7 @@
   "author": {
     "name": "Maxence Lecanu",
     "email": "lecanu.maxence@gmail.com",
-    "url": "https://me.mlecanu.com"
+    "url": "https://github.com/LMaxence"
   },
   "type": "module",
   "main": "dist/index.js",
@@ -31,31 +31,25 @@
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch",
-    "format": "npx prettier -c lib/**/*.ts",
-    "lint": "npx eslint lib/**/*.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch --import tsx ./lib/main.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint"
   },
   "devDependencies": {
-    "@escape.tech/mookme": "^2.5.0",
-    "@tsconfig/esm": "^1.0.5",
-    "@tsconfig/node18": "^1.0.1",
-    "@tsconfig/strictest": "^2.0.2",
-    "@types/eslint": "^8.44.6",
-    "@types/node": "^18.18.7",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "@typescript-eslint/parser": "^6.9.0",
-    "eslint": "^8.52.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-xo": "^0.43.1",
-    "eslint-config-xo-typescript": "^1.0.1",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-unicorn": "^48.0.1",
-    "eslint-plugin-unused-imports": "^3.0.0",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.17.0",
+    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
     "prettier": "^3.0.3",
-    "prettier-plugin-jsdoc": "^1.1.1",
-    "prettier-plugin-packagejson": "^2.4.6",
-    "typescript": "^5.2.2"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
   },
-  "packageManager": "yarn@3.5.0"
+  "volta": {
+    "node": "22.12.0"
+  }
 }
