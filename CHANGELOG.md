@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/LMaxence/hellog/compare/v3.0.0...v3.1.0) (2024-12-21)
+
+
+### Bug Fixes
+
+* add prettier ignore to ignore changelog ([54e1145](https://github.com/LMaxence/hellog/commit/54e1145dddb59fc43807b537e176d5f5db59b705))
+
+
+### Features
+
+* add  method and docstrings to hellog class ([609bb1b](https://github.com/LMaxence/hellog/commit/609bb1bb5ebdea26237b647687be12868f1cdfd7))
+
 # [3.0.0](https://github.com/LMaxence/hellog/compare/v2.3.1...v3.0.0) (2024-12-21)
 
 
