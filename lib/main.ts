@@ -1,31 +1,15 @@
 import { Hellog } from './hellog.js';
-import { HellogLevel } from './levels.js';
 
-const logger = new Hellog({
-  level: HellogLevel.TRACE,
-  meta: {
-    service: 'hellog',
-  },
-});
+const logger = new Hellog();
 
-logger.error('Hello, world!');
-logger.trace('Hello, world!');
-logger.error(
-  JSON.stringify(
-    {
-      hello: 'world 2',
-      foo: 'bar',
-      some: {
-        nested: {
-          data: 'here',
-        },
-      },
-    },
-    null,
-    2,
-  ),
-);
 logger.info('Hello, world!');
-logger.warn('Hello, world!');
+logger.info('This is an info message.');
+logger.warn('This is a warning message.');
+logger.error('This is an error message.');
 
-logger.error(new Error('Hello, world!'));
+// Accepts any input
+logger.info('Logging a number:', 123);
+logger.info('Logging an object:', { key: 'value' });
+
+// Outputs
+logger.info('Logging an array:', [1, 2, 3]);
