@@ -15,7 +15,42 @@ interface HellogOptions {
   meta?: Record<string, string>;
 }
 
+/**
+ * A simple logger.
+ *
+ * See {@link HellogOptions} for configuration options.
+ *
+ * See {@link HellogPlugin} for plugin interface.
+ *
+ * @example
+ * ```typescript
+ * import { Hellog } from './hellog.js';
+ * const logger = new Hellog({maxLevel: HellogLevel.ERROR});
+ *
+ * logger.trace('This is a trace message.');
+ * logger.info('Hello, world!');
+ * ```
+ * @example
+ * ```typescript
+ * import { Hellog } from './hellog.js';
+ *
+ * const logger = new Hellog({
+ *  level: HellogLevel.ERROR,
+ *  plugins: [
+ *   new HellogLineBreakDefaultPlugin(),
+ *   new HellogPrettyDefaultPlugin(),
+ *   new HellogColorizeDefaultPlugin(),
+ *   new HellogStdoutDefaultPlugin(),
+ *  ],
+ *  meta: {
+ *   service: 'my-service',
+ *  },
+ * });
+ */
 export class Hellog {
+  /**
+   * Default plugins used by the logger when none are provided.
+   */
   static DefaultPlugins = [
     new HellogLineBreakDefaultPlugin(),
     new HellogPrettyDefaultPlugin(),
@@ -37,12 +72,25 @@ export class Hellog {
     return this.options?.meta ?? {};
   }
 
-  private _log(data: unknown, level: HellogLevel): void {
+  /**
+   *  Add a plugin to the logger.
+   *
+   * @param plugin {@link HellogPlugin} The plugin to add to the logger.
+   * @returns
+   */
+  with(plugin: HellogPlugin): Hellog {
+    return new Hellog({
+      ...this.options,
+      plugins: [...this.plugins, plugin],
+    });
+  }
+
+  private _log(data: unknown[], level: HellogLevel): void {
     if (HellogLevelOrder[level] < HellogLevelOrder[this.maxLevel]) return;
 
     let messages: HellogMessage[] = [
       {
-        content: format(data),
+        content: format(...data),
         timestamp: new Date(),
         level,
         meta: this.meta,
@@ -60,23 +108,23 @@ export class Hellog {
     }
   }
 
-  trace(data: unknown): void {
+  trace(...data: unknown[]): void {
     this._log(data, HellogLevel.TRACE);
   }
 
-  debug(data: unknown): void {
+  debug(...data: unknown[]): void {
     this._log(data, HellogLevel.DEBUG);
   }
 
-  info(data: unknown): void {
+  info(...data: unknown[]): void {
     this._log(data, HellogLevel.INFO);
   }
 
-  warn(data: unknown): void {
+  warn(...data: unknown[]): void {
     this._log(data, HellogLevel.WARN);
   }
 
-  error(data: unknown): void {
+  error(...data: unknown[]): void {
     this._log(data, HellogLevel.ERROR);
   }
 }
