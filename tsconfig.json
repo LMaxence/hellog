@@ -1,19 +1,13 @@
 {
   "extends": [
-    "@tsconfig/esm/tsconfig",
-    "@tsconfig/node18/tsconfig",
-    "@tsconfig/strictest/tsconfig"
+    "@tsconfig/node22/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
   ],
   "compilerOptions": {
-    "esModuleInterop": true,
-    "exactOptionalPropertyTypes": false,
-    "lib": ["ESNext"],
-    "module": "Node16",
-    "moduleResolution": "Node16",
     "outDir": "./dist",
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "skipLibCheck": true
+    "sourceMap": true,
+    "declaration": true
   },
-  "include": ["lib/**/*"]
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
