@@ -1,0 +1,36 @@
+name: Pull Requests Quality Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Check code formatting
+        run: yarn format:check
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
