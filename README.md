@@ -17,7 +17,7 @@ npm install @steffthestunt/hellog
 Import `hellog` into your project and start logging:
 
 ```javascript
-import Hellog from '@steffthestunt/hellog';
+import { Hellog } from '@steffthestunt/hellog';
 
 // Initialize with default config
 const logger = new Hellog();
