@@ -52,15 +52,49 @@ export class HellogPrettyDefaultPlugin extends HellogPlugin {
   }
 }
 
+interface HellogLogFormatDefaultPluginOptions {
+  /**
+   * Remap the keys of the log message.
+   *
+   * @default {
+   *   timestamp: 'timestamp',
+   *   level: 'level',
+   *   message: 'message',
+   * }
+   */
+  remapKeys?: {
+    /**
+     * The key to use for the timestamp.
+     */
+    timestamp?: string;
+    /**
+     * The key to use for the level.
+     */
+    level?: string;
+    /**
+     * The key to use for the message.
+     */
+    message?: string;
+  };
+}
+
 export class HellogLogFormatDefaultPlugin extends HellogPlugin {
+  constructor(private readonly options?: HellogLogFormatDefaultPluginOptions) {
+    super();
+  }
+
   override format(messages: HellogMessage[]): HellogMessage[] {
     const formatted: HellogMessage[] = [];
 
+    const timestampKey = this.options?.remapKeys?.timestamp ?? 'timestamp';
+    const levelKey = this.options?.remapKeys?.level ?? 'level';
+    const messageKey = this.options?.remapKeys?.message ?? 'message';
+
     for (const message of messages) {
       const data: Record<string, string> = {
-        timestamp: message.timestamp.toISOString(),
-        level: message.level,
-        message: message.content,
+        [timestampKey]: message.timestamp.toISOString(),
+        [levelKey]: message.level,
+        [messageKey]: message.content,
       };
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       for (const key in message.meta) data[key] = message.meta[key]!;

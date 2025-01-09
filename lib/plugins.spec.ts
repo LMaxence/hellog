@@ -62,6 +62,33 @@ describe(HellogLogFormatDefaultPlugin.name, () => {
         'foo="bar"',
     );
   });
+
+  it('should remap the keys of the log message', () => {
+    const plugin = new HellogLogFormatDefaultPlugin({
+      remapKeys: { timestamp: 'ts', level: 'lvl', message: 'msg' },
+    });
+    const source = {
+      level: HellogLevel.INFO,
+      meta: { foo: 'bar' },
+      timestamp: new Date('2021-01-01T00:00:00Z'),
+      content: 'Hello, world!',
+    };
+    const result = plugin.format([source]);
+
+    const message = result.at(0);
+    assert.notEqual(message, undefined);
+
+    assert.strictEqual(message?.level, source.level);
+    assert.equal(message.meta['foo'], source.meta.foo);
+    assert.strictEqual(
+      message.timestamp.toISOString(),
+      source.timestamp.toISOString(),
+    );
+    assert.strictEqual(
+      message.content,
+      'ts="2021-01-01T00:00:00.000Z" lvl="INFO" msg="Hello, world!" foo="bar"',
+    );
+  });
 });
 
 describe(HellogJsonDefaultPlugin.name, () => {
