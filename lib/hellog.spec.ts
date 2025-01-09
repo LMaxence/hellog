@@ -6,9 +6,18 @@ import { HellogMessage } from './messages.js';
 import {
   HellogColorizeDefaultPlugin,
   HellogLineBreakDefaultPlugin,
+  HellogPlugin,
   HellogPrettyDefaultPlugin,
   HellogStdoutDefaultPlugin,
 } from './plugins.js';
+
+class StoredLogsTransportPlugin extends HellogPlugin {
+  readonly logs: HellogMessage[] = [];
+
+  override write(_message: HellogMessage): void {
+    this.logs.push(_message);
+  }
+}
 
 describe(Hellog.name, () => {
   it('should have a default max level', () => {
@@ -21,14 +30,27 @@ describe(Hellog.name, () => {
     assert.strictEqual(logger.maxLevel, HellogLevel.ERROR);
   });
 
-  it('should have default meta', () => {
-    const logger = new Hellog();
-    assert.deepStrictEqual(logger.meta, {});
+  it('should log with custom meta if provided', () => {
+    const store = new StoredLogsTransportPlugin();
+    const logger = new Hellog({ meta: { foo: 'bar' }, plugins: [store] });
+
+    logger.info('Hello, world!');
+    assert.strictEqual(store.logs.length, 1);
+    assert.strictEqual(store.logs[0]?.meta['foo'], 'bar');
+    assert.strictEqual(store.logs[0]?.content, 'Hello, world!');
   });
 
-  it('should have custom meta', () => {
-    const logger = new Hellog({ meta: { foo: 'bar' } });
-    assert.deepStrictEqual(logger.meta, { foo: 'bar' });
+  it('should log with custom dynamic meta if provided', () => {
+    const store = new StoredLogsTransportPlugin();
+    const logger = new Hellog({
+      meta: () => ({ foo: 'bar' }),
+      plugins: [store],
+    });
+
+    logger.info('Hello, world!');
+    assert.strictEqual(store.logs.length, 1);
+    assert.strictEqual(store.logs[0]?.meta['foo'], 'bar');
+    assert.strictEqual(store.logs[0]?.content, 'Hello, world!');
   });
 
   it('should have default plugins', () => {

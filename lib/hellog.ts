@@ -12,7 +12,7 @@ import {
 interface HellogOptions {
   level?: HellogLevel;
   plugins?: HellogPlugin[];
-  meta?: Record<string, string>;
+  meta?: Record<string, string> | (() => Record<string, string>);
 }
 
 /**
@@ -58,7 +58,7 @@ export class Hellog {
     new HellogStdoutDefaultPlugin(),
   ];
 
-  constructor(private readonly options?: HellogOptions) {}
+  constructor(readonly options?: HellogOptions) {}
 
   get maxLevel(): HellogLevel {
     return this.options?.level ?? HellogLevel.INFO;
@@ -66,10 +66,6 @@ export class Hellog {
 
   get plugins(): HellogPlugin[] {
     return this.options?.plugins ?? Hellog.DefaultPlugins;
-  }
-
-  get meta(): Record<string, string> {
-    return this.options?.meta ?? {};
   }
 
   /**
@@ -88,12 +84,20 @@ export class Hellog {
   private _log(data: unknown[], level: HellogLevel): void {
     if (HellogLevelOrder[level] < HellogLevelOrder[this.maxLevel]) return;
 
+    let metaObject: Record<string, string>;
+    const meta = this.options?.meta;
+    if (meta && typeof meta === 'function') {
+      metaObject = meta();
+    } else {
+      metaObject = meta ?? {};
+    }
+
     let messages: HellogMessage[] = [
       {
         content: format(...data),
         timestamp: new Date(),
         level,
-        meta: this.meta,
+        meta: metaObject,
       },
     ];
 
