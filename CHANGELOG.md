@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/LMaxence/hellog/compare/v3.4.0...v3.4.1) (2025-01-09)
+
+
+### Bug Fixes
+
+* expose success method in hellog object ([c1c77b2](https://github.com/LMaxence/hellog/commit/c1c77b28cdc8f7e3f8cbc6cc6ae588ad351673af))
+
 # [3.4.0](https://github.com/LMaxence/hellog/compare/v3.3.0...v3.4.0) (2025-01-09)
 
 
