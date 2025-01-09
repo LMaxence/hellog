@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/LMaxence/hellog/compare/v3.3.0...v3.4.0) (2025-01-09)
+
+
+### Features
+
+* add support for success level and add log proxy method for info level ([1636122](https://github.com/LMaxence/hellog/commit/1636122e1e629083cdf27cee1c8b17ed65504d71))
+
 # [3.3.0](https://github.com/LMaxence/hellog/compare/v3.2.0...v3.3.0) (2025-01-09)
 
 

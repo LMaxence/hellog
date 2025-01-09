@@ -1,6 +1,6 @@
 {
   "name": "@steffthestunt/hellog",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Another logger for JS. This one offers a console.log-like API, with plugin-based extensibility, all that with 0 dependencies.",
   "keywords": [
     "log",
