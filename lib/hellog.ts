@@ -145,6 +145,14 @@ export class Hellog {
   }
 
   /**
+   * Log a message at the success level.
+   * @param data The data to log.
+   */
+  success(...data: unknown[]): void {
+    this._log(data, HellogLevel.SUCCESS);
+  }
+
+  /**
    * Log a message at the warn level.
    * @param data The data to log.
    */
