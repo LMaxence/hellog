@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/LMaxence/hellog/compare/v3.2.0...v3.3.0) (2025-01-09)
+
+
+### Features
+
+* add support for dynamic meta keys in hellog ([7fa2739](https://github.com/LMaxence/hellog/commit/7fa2739405a70fcbd943faf80227062d42e3448d))
+
 # [3.2.0](https://github.com/LMaxence/hellog/compare/v3.1.0...v3.2.0) (2025-01-09)
 
 
