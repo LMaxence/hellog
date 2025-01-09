@@ -140,6 +140,9 @@ export class HellogColorizeDefaultPlugin extends HellogPlugin {
         case HellogLevel.DEBUG:
           content = `\x1b[36m${content}\x1b[0m`;
           break;
+        case HellogLevel.SUCCESS:
+          content = `\x1b[32m${content}\x1b[0m`;
+          break;
         case HellogLevel.WARN:
           content = `\x1b[33m${content}\x1b[0m`;
           break;

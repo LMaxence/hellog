@@ -177,6 +177,8 @@ describe(HellogColorizeDefaultPlugin.name, () => {
     const sources = [
       { level: HellogLevel.TRACE, ...baseSource },
       { level: HellogLevel.DEBUG, ...baseSource },
+      { level: HellogLevel.INFO, ...baseSource },
+      { level: HellogLevel.SUCCESS, ...baseSource },
       { level: HellogLevel.WARN, ...baseSource },
       { level: HellogLevel.ERROR, ...baseSource },
     ];
@@ -200,6 +202,9 @@ describe(HellogColorizeDefaultPlugin.name, () => {
           break;
         case HellogLevel.DEBUG:
           assert.strictEqual(message.content, '\x1b[36mHello, world!\x1b[0m');
+          break;
+        case HellogLevel.SUCCESS:
+          assert.strictEqual(message.content, '\x1b[32mHello, world!\x1b[0m');
           break;
         case HellogLevel.WARN:
           assert.strictEqual(message.content, '\x1b[33mHello, world!\x1b[0m');

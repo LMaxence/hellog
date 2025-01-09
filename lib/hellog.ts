@@ -112,22 +112,50 @@ export class Hellog {
     }
   }
 
+  /**
+   * Log a message at the trace level.
+   * @param data The data to log.
+   */
   trace(...data: unknown[]): void {
     this._log(data, HellogLevel.TRACE);
   }
 
+  /**
+   * Log a message at the debug level.
+   * @param data The data to log.
+   */
   debug(...data: unknown[]): void {
     this._log(data, HellogLevel.DEBUG);
   }
 
+  /**
+   * Log a message at the info level. Similar to {@link info}.
+   * @param data The data to log.
+   */
+  log(...data: unknown[]): void {
+    this._log(data, HellogLevel.INFO);
+  }
+
+  /**
+   * Log a message at the info level. Similar to {@link log}.
+   * @param data The data to log.
+   */
   info(...data: unknown[]): void {
     this._log(data, HellogLevel.INFO);
   }
 
+  /**
+   * Log a message at the warn level.
+   * @param data The data to log.
+   */
   warn(...data: unknown[]): void {
     this._log(data, HellogLevel.WARN);
   }
 
+  /**
+   * Log a message at the error level.
+   * @param data The data to log.
+   */
   error(...data: unknown[]): void {
     this._log(data, HellogLevel.ERROR);
   }
