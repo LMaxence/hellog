@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/LMaxence/hellog/compare/v3.1.0...v3.2.0) (2025-01-09)
+
+
+### Features
+
+* add support for custom keys in default logfmt plugin ([ac01271](https://github.com/LMaxence/hellog/commit/ac01271956949d8c01cb736a11838559a6b046c2))
+
 # [3.1.0](https://github.com/LMaxence/hellog/compare/v3.0.0...v3.1.0) (2024-12-21)
 
 
