@@ -34,6 +34,7 @@ jobs:
         with:
           node-version: '26'
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm install
@@ -45,4 +46,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'
-        run: pnpm dlx semantic-release
+        run: pnpm exec semantic-release
