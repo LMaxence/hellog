@@ -77,7 +77,6 @@ describe(Hellog.name, () => {
 
     for (const plugin of logger.plugins) {
       const formatMock = mock.fn((messages: HellogMessage[]) => messages);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
       const writeMock = mock.fn((_message: HellogMessage) => {});
 
       plugin.format = formatMock;

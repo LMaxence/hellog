@@ -1,9 +1,9 @@
 {
-  "extends": [
-    "@tsconfig/node22/tsconfig.json",
-    "@tsconfig/strictest/tsconfig.json"
-  ],
+  "extends": ["@tsconfig/node24/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
   "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "rootDir": "./lib",
+    "types": ["node"],
     "outDir": "./dist",
     "sourceMap": true,
     "declaration": true

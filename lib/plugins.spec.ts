@@ -21,14 +21,11 @@ describe(HellogLogFormatDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(
       message.content,
       'timestamp="2021-01-01T00:00:00.000Z" level="INFO" message="Hello, world!" foo="bar"',
@@ -46,14 +43,11 @@ describe(HellogLogFormatDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(
       message.content,
       'timestamp="2021-01-01T00:00:00.000Z" ' +
@@ -76,14 +70,11 @@ describe(HellogLogFormatDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(
       message.content,
       'ts="2021-01-01T00:00:00.000Z" lvl="INFO" msg="Hello, world!" foo="bar"',
@@ -103,14 +94,11 @@ describe(HellogJsonDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(
       message.content,
       '{"level":"INFO","timestamp":"2021-01-01T00:00:00.000Z","content":"Hello, world!","foo":"bar"}',
@@ -128,14 +116,11 @@ describe(HellogJsonDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(
       message.content,
       '{"level":"INFO","timestamp":"2021-01-01T00:00:00.000Z","content":"Hello, world! \\nThis is a new line.","foo":"bar"}',
@@ -155,14 +140,11 @@ describe(HellogColorizeDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(message.content, source.content);
   });
 
@@ -187,14 +169,11 @@ describe(HellogColorizeDefaultPlugin.name, () => {
 
     for (const [index, source] of sources.entries()) {
       const message = results.at(index);
-      assert.notEqual(message, undefined);
+      assert.ok(message);
 
       assert.strictEqual(message?.level, source.level);
       assert.equal(message.meta['foo'], source.meta.foo);
-      assert.strictEqual(
-        message.timestamp.toISOString(),
-        source.timestamp.toISOString(),
-      );
+      assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
 
       switch (source.level) {
         case HellogLevel.TRACE:
@@ -229,18 +208,12 @@ describe(HellogPrettyDefaultPlugin.name, () => {
     const result = plugin.format([source]);
 
     const message = result.at(0);
-    assert.notEqual(message, undefined);
+    assert.ok(message);
 
     assert.strictEqual(message?.level, source.level);
     assert.equal(message.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
-    assert.strictEqual(
-      message.content,
-      '2021-01-01T00:00:00.000Z [INFO] Hello, world!',
-    );
+    assert.strictEqual(message.timestamp.toISOString(), source.timestamp.toISOString());
+    assert.strictEqual(message.content, '2021-01-01T00:00:00.000Z [INFO] Hello, world!');
   });
 });
 
@@ -258,25 +231,19 @@ describe(HellogLineBreakDefaultPlugin.name, () => {
     assert.strictEqual(result.length, 2);
 
     const message1 = result.at(0);
-    assert.notEqual(message1, undefined);
+    assert.ok(message1);
 
     assert.strictEqual(message1?.level, source.level);
     assert.equal(message1.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message1.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message1.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(message1.content, 'Hello, world!');
 
     const message2 = result.at(1);
-    assert.notEqual(message2, undefined);
+    assert.ok(message2);
 
     assert.strictEqual(message2?.level, source.level);
     assert.equal(message2.meta['foo'], source.meta.foo);
-    assert.strictEqual(
-      message2.timestamp.toISOString(),
-      source.timestamp.toISOString(),
-    );
+    assert.strictEqual(message2.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(message2.content, 'This is a new line.');
   });
 });

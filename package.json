@@ -4,17 +4,13 @@
   "description": "Another logger for JS. This one offers a console.log-like API, with plugin-based extensibility, all that with 0 dependencies.",
   "keywords": [
     "log",
-    "logs",
-    "logger"
+    "logger",
+    "logs"
   ],
   "homepage": "https://github.com/LMaxence/hellog",
   "bugs": {
     "url": "https://github.com/LMaxence/hellog/issues",
     "email": "lecanu.maxence@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LMaxence/hellog"
   },
   "license": "ISC",
   "author": {
@@ -22,38 +18,41 @@
     "email": "lecanu.maxence@gmail.com",
     "url": "https://github.com/LMaxence"
   },
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LMaxence/hellog"
+  },
   "files": [
     "dist/**/*.js",
     "dist/**/*.ts"
   ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "node --watch --import tsx ./lib/main.ts",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "lint": "eslint",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint .",
     "test": "NODE_NO_WARNINGS=1 node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info --test-reporter spec --test-reporter-destination=stdout --test-coverage-include \"lib/*.ts\" --test-coverage-exclude \"lib/*.spec.ts\" --import tsx lib/*.spec.ts"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
-    "@eslint/js": "^9.17.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/node24": "^24.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.10.2",
-    "eslint": "^9.17.0",
-    "prettier": "^3.0.3",
+    "@types/node": "^26.0.0",
+    "oxfmt": "^0.56.0",
+    "oxlint": "^1.71.0",
     "semantic-release": "^24.2.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.1"
+    "typescript": "7.0.1-rc"
   },
   "volta": {
-    "node": "22.12.0"
-  }
+    "node": "26.4.0"
+  },
+  "packageManager": "pnpm@10.12.1"
 }

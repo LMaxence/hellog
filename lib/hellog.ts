@@ -58,7 +58,11 @@ export class Hellog {
     new HellogStdoutDefaultPlugin(),
   ];
 
-  constructor(readonly options?: HellogOptions) {}
+  readonly options: HellogOptions | undefined;
+
+  constructor(options?: HellogOptions) {
+    this.options = options;
+  }
 
   get maxLevel(): HellogLevel {
     return this.options?.level ?? HellogLevel.INFO;
