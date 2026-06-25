@@ -17,6 +17,7 @@ jobs:
       issues: write
       pull-requests: write
       packages: write
+      id-token: write
 
     steps:
       - name: Checkout
@@ -43,6 +44,6 @@ jobs:
 
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
         run: pnpm dlx semantic-release
