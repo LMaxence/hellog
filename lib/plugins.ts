@@ -7,7 +7,6 @@ export abstract class HellogPlugin {
     return message;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   write(_message: HellogMessage): void {}
 }
 /* node:coverage enable */
@@ -79,8 +78,11 @@ interface HellogLogFormatDefaultPluginOptions {
 }
 
 export class HellogLogFormatDefaultPlugin extends HellogPlugin {
-  constructor(private readonly options?: HellogLogFormatDefaultPluginOptions) {
+  private readonly options: HellogLogFormatDefaultPluginOptions | undefined;
+
+  constructor(options?: HellogLogFormatDefaultPluginOptions) {
     super();
+    this.options = options;
   }
 
   override format(messages: HellogMessage[]): HellogMessage[] {
@@ -96,11 +98,9 @@ export class HellogLogFormatDefaultPlugin extends HellogPlugin {
         [levelKey]: message.level,
         [messageKey]: message.content,
       };
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       for (const key in message.meta) data[key] = message.meta[key]!;
 
       let content = '';
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       for (const key in data) content += `${key}="${data[key]!}" `;
       if (content.endsWith(' ')) content = content.slice(0, -1);
 

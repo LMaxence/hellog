@@ -1,11 +1,13 @@
-export const enum HellogLevel {
-  TRACE = 'TRACE',
-  DEBUG = 'DEBUG',
-  INFO = 'INFO',
-  SUCCESS = 'SUCCESS',
-  WARN = 'WARN',
-  ERROR = 'ERROR',
-}
+export const HellogLevel = {
+  TRACE: 'TRACE',
+  DEBUG: 'DEBUG',
+  INFO: 'INFO',
+  SUCCESS: 'SUCCESS',
+  WARN: 'WARN',
+  ERROR: 'ERROR',
+} as const;
+
+export type HellogLevel = (typeof HellogLevel)[keyof typeof HellogLevel];
 
 export const HellogLevelOrder = {
   TRACE: 0,
