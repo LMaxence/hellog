@@ -1,5 +1,6 @@
 import { HellogLevel } from './levels.js';
 import { HellogMessage } from './messages.js';
+import { SerializedError } from './errors.js';
 
 /* node:coverage disable */
 export abstract class HellogPlugin {
@@ -98,7 +99,15 @@ export class HellogLogFormatDefaultPlugin extends HellogPlugin {
         [levelKey]: message.level,
         [messageKey]: message.content,
       };
-      for (const key in message.meta) data[key] = message.meta[key]!;
+      for (const key in message.meta) {
+        const v = message.meta[key];
+        data[key] =
+          v === null || v === undefined
+            ? ''
+            : typeof v === 'object'
+              ? JSON.stringify(v)
+              : String(v);
+      }
 
       let content = '';
       for (const key in data) content += `${key}="${data[key]!}" `;
@@ -116,10 +125,11 @@ export class HellogJsonDefaultPlugin extends HellogPlugin {
     const formatted: HellogMessage[] = [];
 
     for (const message of messages) {
-      const { meta, ...rest } = message;
-      const content: Record<string, unknown> = rest;
+      const { meta, error, ...rest } = message;
+      const content: Record<string, unknown> = { ...rest };
 
       for (const key in meta) content[key] = meta[key];
+      if (error) content['error'] = error as SerializedError;
       formatted.push({ ...message, content: JSON.stringify(content) });
     }
 
@@ -127,8 +137,33 @@ export class HellogJsonDefaultPlugin extends HellogPlugin {
   }
 }
 
+interface HellogColorizeDefaultPluginOptions {
+  /**
+   * Override auto-detection. `true` forces ANSI on, `false` forces off.
+   * Default: auto (enabled when stdout is a TTY and NO_COLOR is unset).
+   */
+  enabled?: boolean;
+}
+
+function _colorEnabled(options: HellogColorizeDefaultPluginOptions | undefined): boolean {
+  if (options?.enabled !== undefined) return options.enabled;
+  if (process.env['FORCE_COLOR'] === '1') return true;
+  if (process.env['FORCE_COLOR'] === '0') return false;
+  if (process.env['NO_COLOR'] !== undefined) return false;
+  return process.stdout.isTTY === true;
+}
+
 export class HellogColorizeDefaultPlugin extends HellogPlugin {
+  private readonly options: HellogColorizeDefaultPluginOptions | undefined;
+
+  constructor(options?: HellogColorizeDefaultPluginOptions) {
+    super();
+    this.options = options;
+  }
+
   override format(messages: HellogMessage[]): HellogMessage[] {
+    if (!_colorEnabled(this.options)) return messages;
+
     const formatted: HellogMessage[] = [];
 
     for (const message of messages) {
