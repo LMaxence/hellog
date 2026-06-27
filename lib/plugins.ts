@@ -145,14 +145,6 @@ interface HellogColorizeDefaultPluginOptions {
   enabled?: boolean;
 }
 
-function _colorEnabled(options: HellogColorizeDefaultPluginOptions | undefined): boolean {
-  if (options?.enabled !== undefined) return options.enabled;
-  if (process.env['FORCE_COLOR'] === '1') return true;
-  if (process.env['FORCE_COLOR'] === '0') return false;
-  if (process.env['NO_COLOR'] !== undefined) return false;
-  return process.stdout.isTTY === true;
-}
-
 export class HellogColorizeDefaultPlugin extends HellogPlugin {
   private readonly options: HellogColorizeDefaultPluginOptions | undefined;
 
@@ -161,8 +153,16 @@ export class HellogColorizeDefaultPlugin extends HellogPlugin {
     this.options = options;
   }
 
+  private get colorEnabled(): boolean {
+    if (this.options?.enabled !== undefined) return this.options.enabled;
+    if (process.env['FORCE_COLOR'] === '1') return true;
+    if (process.env['FORCE_COLOR'] === '0') return false;
+    if (process.env['NO_COLOR'] !== undefined) return false;
+    return process.stdout.isTTY === true;
+  }
+
   override format(messages: HellogMessage[]): HellogMessage[] {
-    if (!_colorEnabled(this.options)) return messages;
+    if (!this.colorEnabled) return messages;
 
     const formatted: HellogMessage[] = [];
 
