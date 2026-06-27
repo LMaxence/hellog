@@ -1,6 +1,7 @@
 import { format } from 'node:util';
 import { serializeError } from './errors.js';
 import { HellogLevel, HellogLevelOrder } from './levels.js';
+import { HellogMeta, MetaInput } from './meta.js';
 import { HellogMessage } from './messages.js';
 import {
   HellogColorizeDefaultPlugin,
@@ -9,11 +10,12 @@ import {
   HellogPrettyDefaultPlugin,
   HellogStdoutDefaultPlugin,
 } from './plugins.js';
+import { HellogTimer } from './timer.js';
 
 interface HellogOptions {
   level?: HellogLevel;
   plugins?: HellogPlugin[];
-  meta?: Record<string, unknown> | (() => Record<string, unknown>);
+  meta?: MetaInput;
 }
 
 /**
@@ -63,7 +65,7 @@ export class Hellog {
   }
 
   readonly options: HellogOptions | undefined;
-  private readonly _timers = new Map<string, bigint>();
+  private readonly _timers = new HellogTimer();
 
   constructor(options?: HellogOptions) {
     this.options = options;
@@ -108,14 +110,11 @@ export class Hellog {
    * reqLog.info('handling request'); // includes requestId in meta
    * ```
    */
-  child(meta: Record<string, unknown> | (() => Record<string, unknown>)): Hellog {
-    const parentMeta = this.options?.meta;
+  child(meta: MetaInput): Hellog {
+    const childMeta = new HellogMeta(this.options?.meta).child(meta);
     return new Hellog({
       ...this.options,
-      meta: () => ({
-        ...Hellog._resolveMeta(parentMeta),
-        ...Hellog._resolveMeta(meta),
-      }),
+      meta: () => childMeta.resolve(),
     });
   }
 
@@ -124,7 +123,7 @@ export class Hellog {
    * Uses `process.hrtime.bigint()` for sub-millisecond monotonic precision.
    */
   time(label: string): void {
-    this._timers.set(label, process.hrtime.bigint());
+    this._timers.start(label);
   }
 
   /**
@@ -135,28 +134,15 @@ export class Hellog {
    * @param level - The log level to use (default: DEBUG).
    */
   timeEnd(label: string, level: HellogLevel = HellogLevel.DEBUG): void {
-    const start = this._timers.get(label);
-    if (start === undefined) return;
-    this._timers.delete(label);
-    const ms = Number(process.hrtime.bigint() - start) / 1_000_000;
-    this._log([`${label}: ${ms.toFixed(3)}ms`], level, { durationMs: ms });
-  }
-
-  private static _resolveMeta(
-    meta: Record<string, unknown> | (() => Record<string, unknown>) | undefined,
-  ): Record<string, unknown> {
-    if (!meta) return {};
-    if (typeof meta === 'function') return meta();
-    return meta;
+    const ms = this._timers.end(label);
+    if (ms === undefined) return;
+    this._log([HellogTimer.format(label, ms)], level, { durationMs: ms });
   }
 
   private _log(data: unknown[], level: HellogLevel, extraMeta?: Record<string, unknown>): void {
     if (HellogLevelOrder[level] < HellogLevelOrder[this.maxLevel]) return;
 
-    const metaObject: Record<string, unknown> = {
-      ...Hellog._resolveMeta(this.options?.meta),
-      ...extraMeta,
-    };
+    const metaObject = new HellogMeta(this.options?.meta).merge(extraMeta);
 
     const err = data.find((d): d is Error => d instanceof Error);
     const serialized = serializeError(err);
