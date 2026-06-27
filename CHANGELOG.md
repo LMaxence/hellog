@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/LMaxence/hellog/compare/v3.5.0...v3.6.0) (2026-06-27)
+
+
+### Features
+
+* child loggers, structured meta, Error serialization, timers, TTY-aware color ([b529c95](https://github.com/LMaxence/hellog/commit/b529c958e2bf9e1711aa00b32cf6cca0059f602a))
+
 # [3.5.0](https://github.com/LMaxence/hellog/compare/v3.4.1...v3.5.0) (2026-06-25)
 
 
