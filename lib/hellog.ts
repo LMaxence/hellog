@@ -1,4 +1,5 @@
 import { format } from 'node:util';
+import { serializeError } from './errors.js';
 import { HellogLevel, HellogLevelOrder } from './levels.js';
 import { HellogMessage } from './messages.js';
 import {
@@ -12,7 +13,7 @@ import {
 interface HellogOptions {
   level?: HellogLevel;
   plugins?: HellogPlugin[];
-  meta?: Record<string, string> | (() => Record<string, string>);
+  meta?: Record<string, unknown> | (() => Record<string, unknown>);
 }
 
 /**
@@ -49,16 +50,20 @@ interface HellogOptions {
  */
 export class Hellog {
   /**
-   * Default plugins used by the logger when none are provided.
+   * Returns a fresh default plugin stack. Each logger instance gets its own
+   * plugin instances to prevent cross-logger state bleed.
    */
-  static DefaultPlugins = [
-    new HellogLineBreakDefaultPlugin(),
-    new HellogPrettyDefaultPlugin(),
-    new HellogColorizeDefaultPlugin(),
-    new HellogStdoutDefaultPlugin(),
-  ];
+  static defaultPlugins(): HellogPlugin[] {
+    return [
+      new HellogLineBreakDefaultPlugin(),
+      new HellogPrettyDefaultPlugin(),
+      new HellogColorizeDefaultPlugin(),
+      new HellogStdoutDefaultPlugin(),
+    ];
+  }
 
   readonly options: HellogOptions | undefined;
+  private readonly _timers = new Map<string, bigint>();
 
   constructor(options?: HellogOptions) {
     this.options = options;
@@ -69,7 +74,15 @@ export class Hellog {
   }
 
   get plugins(): HellogPlugin[] {
-    return this.options?.plugins ?? Hellog.DefaultPlugins;
+    return this.options?.plugins ?? Hellog.defaultPlugins();
+  }
+
+  /**
+   * Returns true when logs at the given level will be processed.
+   * Use to guard expensive argument construction.
+   */
+  isLevelEnabled(level: HellogLevel): boolean {
+    return HellogLevelOrder[level] >= HellogLevelOrder[this.maxLevel];
   }
 
   /**
@@ -85,16 +98,68 @@ export class Hellog {
     });
   }
 
-  private _log(data: unknown[], level: HellogLevel): void {
+  /**
+   * Create a child logger that inherits level + plugins and merges additional
+   * meta on top of the parent's. Supports static or dynamic meta.
+   *
+   * @example
+   * ```ts
+   * const reqLog = logger.child({ requestId: 'abc' });
+   * reqLog.info('handling request'); // includes requestId in meta
+   * ```
+   */
+  child(meta: Record<string, unknown> | (() => Record<string, unknown>)): Hellog {
+    const parentMeta = this.options?.meta;
+    return new Hellog({
+      ...this.options,
+      meta: () => ({
+        ...Hellog._resolveMeta(parentMeta),
+        ...Hellog._resolveMeta(meta),
+      }),
+    });
+  }
+
+  /**
+   * Start a timer for the given label. Call {@link timeEnd} to stop it.
+   * Uses `process.hrtime.bigint()` for sub-millisecond monotonic precision.
+   */
+  time(label: string): void {
+    this._timers.set(label, process.hrtime.bigint());
+  }
+
+  /**
+   * Stop a timer started with {@link time} and log the elapsed duration.
+   * Logs at DEBUG level by default.
+   *
+   * @param label - The label used in {@link time}.
+   * @param level - The log level to use (default: DEBUG).
+   */
+  timeEnd(label: string, level: HellogLevel = HellogLevel.DEBUG): void {
+    const start = this._timers.get(label);
+    if (start === undefined) return;
+    this._timers.delete(label);
+    const ms = Number(process.hrtime.bigint() - start) / 1_000_000;
+    this._log([`${label}: ${ms.toFixed(3)}ms`], level, { durationMs: ms });
+  }
+
+  private static _resolveMeta(
+    meta: Record<string, unknown> | (() => Record<string, unknown>) | undefined,
+  ): Record<string, unknown> {
+    if (!meta) return {};
+    if (typeof meta === 'function') return meta();
+    return meta;
+  }
+
+  private _log(data: unknown[], level: HellogLevel, extraMeta?: Record<string, unknown>): void {
     if (HellogLevelOrder[level] < HellogLevelOrder[this.maxLevel]) return;
 
-    let metaObject: Record<string, string>;
-    const meta = this.options?.meta;
-    if (meta && typeof meta === 'function') {
-      metaObject = meta();
-    } else {
-      metaObject = meta ?? {};
-    }
+    const metaObject: Record<string, unknown> = {
+      ...Hellog._resolveMeta(this.options?.meta),
+      ...extraMeta,
+    };
+
+    const err = data.find((d): d is Error => d instanceof Error);
+    const serialized = serializeError(err);
 
     let messages: HellogMessage[] = [
       {
@@ -102,6 +167,7 @@ export class Hellog {
         timestamp: new Date(),
         level,
         meta: metaObject,
+        ...(serialized !== undefined ? { error: serialized } : {}),
       },
     ];
 

@@ -8,6 +8,7 @@ import {
   HellogLogFormatDefaultPlugin,
   HellogPrettyDefaultPlugin,
 } from './plugins.js';
+import { SerializedError } from './errors.js';
 
 describe(HellogLogFormatDefaultPlugin.name, () => {
   it("should format a message's content into a log-formatted string", () => {
@@ -149,7 +150,7 @@ describe(HellogColorizeDefaultPlugin.name, () => {
   });
 
   it("should apply the correct color code depending on the message's level", () => {
-    const plugin = new HellogColorizeDefaultPlugin();
+    const plugin = new HellogColorizeDefaultPlugin({ enabled: true });
     const baseSource = {
       meta: { foo: 'bar' },
       timestamp: new Date('2021-01-01T00:00:00Z'),
@@ -245,5 +246,68 @@ describe(HellogLineBreakDefaultPlugin.name, () => {
     assert.equal(message2.meta['foo'], source.meta.foo);
     assert.strictEqual(message2.timestamp.toISOString(), source.timestamp.toISOString());
     assert.strictEqual(message2.content, 'This is a new line.');
+  });
+});
+
+describe('HellogColorizeDefaultPlugin TTY detection', () => {
+  it('should suppress ANSI when enabled=false', () => {
+    const plugin = new HellogColorizeDefaultPlugin({ enabled: false });
+    const source = {
+      level: HellogLevel.ERROR,
+      meta: {},
+      timestamp: new Date(),
+      content: 'oops',
+    };
+    const [result] = plugin.format([source]);
+    assert.ok(result);
+    assert.strictEqual(result.content, 'oops');
+  });
+
+  it('should emit ANSI when enabled=true regardless of TTY', () => {
+    const plugin = new HellogColorizeDefaultPlugin({ enabled: true });
+    const source = {
+      level: HellogLevel.ERROR,
+      meta: {},
+      timestamp: new Date(),
+      content: 'oops',
+    };
+    const [result] = plugin.format([source]);
+    assert.ok(result);
+    assert.strictEqual(result.content, '\x1b[31moops\x1b[0m');
+  });
+});
+
+describe('HellogLogFormatDefaultPlugin structured meta', () => {
+  it('should stringify non-string meta values', () => {
+    const plugin = new HellogLogFormatDefaultPlugin();
+    const source = {
+      level: HellogLevel.INFO,
+      meta: { count: 42, active: true, tags: ['a', 'b'] },
+      timestamp: new Date('2021-01-01T00:00:00Z'),
+      content: 'msg',
+    };
+    const [result] = plugin.format([source]);
+    assert.ok(result);
+    assert.ok(result.content.includes('count="42"'));
+    assert.ok(result.content.includes('active="true"'));
+    assert.ok(result.content.includes('tags="["a","b"]"'));
+  });
+});
+
+describe('HellogJsonDefaultPlugin error field', () => {
+  it('should include error object when present on message', () => {
+    const plugin = new HellogJsonDefaultPlugin();
+    const err: SerializedError = { name: 'Error', message: 'boom', stack: 'Error: boom\n  at ...' };
+    const source = {
+      level: HellogLevel.ERROR,
+      meta: {},
+      timestamp: new Date('2021-01-01T00:00:00Z'),
+      content: 'Error: boom',
+      error: err,
+    };
+    const [result] = plugin.format([source]);
+    assert.ok(result);
+    const parsed = JSON.parse(result.content) as Record<string, unknown>;
+    assert.deepStrictEqual(parsed['error'], err);
   });
 });
